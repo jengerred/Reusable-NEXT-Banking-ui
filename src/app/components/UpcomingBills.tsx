@@ -19,12 +19,18 @@ export default function UpcomingBills() {
   const [bills, setBills] = useState<Bill[]>(mockBills);
 
   // Handle adding a new bill
-  const handleAddBill = (newBill: Omit<Bill, "id">) => {
+  const handleAddBill = () => {
     setBills((prev) => [
       ...prev,
-      { ...newBill, id: Date.now().toString() }, // Generate a unique ID
+      { 
+        id: Date.now().toString(),
+        name: "New Bill",
+        amount: 50.0,
+        dueDate: new Date().toISOString()
+      }
     ]);
   };
+  
 
   const handlePayNow = (id: string) => {
     alert(`Bill with ID ${id} has been paid.`);
@@ -53,17 +59,7 @@ export default function UpcomingBills() {
       
        {/* Add Bill Button */}
       <button
-        onClick={() =>
-          setBills((prev) => [
-            ...prev,
-            {
-              id: Date.now().toString(),
-              name: "New Bill",
-              amount: 50.0,
-              dueDate: "2025-03-15",
-            },
-          ])
-        }
+        onClick={handleAddBill}
         className="mt-2 px-4 py-2 text-sm font-medium bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors w-50">
         + Add 
       </button>
@@ -77,7 +73,9 @@ export default function UpcomingBills() {
           >
             <div>
               <p className="font-medium text-gray-800">{bill.name}</p>
-              <p className="text-sm font-bold text-red-500">Due Date: {formatDateDynamic(bill.dueDate)}</p>
+              <p className="text-sm font-bold text-red-500">
+  Due Date: {bill.dueDate ? formatDateDynamic(bill.dueDate) : "No due date set"}
+</p>
               
               {/* Countdown Timer */}
               <CountdownTimer dueDate={bill.dueDate} />

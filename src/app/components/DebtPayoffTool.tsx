@@ -42,7 +42,7 @@ export default function DebtPayoffTool() {
     }
 
     return {
-      newBalance: Math.max(0, newBalance.toFixed(2)),
+        newBalance: Math.max(0, newBalance).toFixed(2),
       monthsToPayOff,
       totalInterestPaid: totalInterestPaid.toFixed(2),
     };
