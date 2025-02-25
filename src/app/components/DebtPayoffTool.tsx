@@ -75,6 +75,7 @@ export default function DebtPayoffTool() {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+ 
  {/* Header with Add Button */}
  <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-gray-800">Debt Payoff Tool</h2>
@@ -94,7 +95,7 @@ export default function DebtPayoffTool() {
           )
         }
         value={selectedDebt?.id}
-        className="w-full px-4 py-2 mb-4 border rounded-lg"
+        className="w-full px-4 py-2 mb-4 border rounded-lg text-black"
       >
         {debts.map((debt) => (
           <option key={debt.id} value={debt.id}>
@@ -131,7 +132,7 @@ export default function DebtPayoffTool() {
           value={customPayment || ""}
           onChange={handlePaymentChange}
           placeholder={`Minimum: $${selectedDebt.minimumPayment}`}
-          className="w-full px-4 py-2 mt-1 border rounded-lg"
+          className="w-full px-4 py-2 mt-1 border rounded-lg text-black"
         />
       </div>
 
@@ -152,7 +153,7 @@ export default function DebtPayoffTool() {
 
       {/* Credit Impact Message */}
       {customPayment && customPayment > 0 && (
-        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+        <div className="mt-4 p-4 bg-blue-900 rounded-lg">
           <p>{generateCreditImpactMessage(customPayment)}</p>
         </div>
       )}
