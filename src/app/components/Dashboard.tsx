@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { mockUser, mockTransactions } from "../utils/mockData";
 import dynamic from "next/dynamic";
 import SubscriptionCard from './SubscriptionCard';
@@ -17,7 +17,26 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ user = mockUser }: DashboardProps) {
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+    const [activeCard, setActiveCard] = useState<string | null>(null);
+    const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  
+    const scrollToCard = (cardTitle: string) => {
+      if (cardRefs.current[cardTitle]) {
+        cardRefs.current[cardTitle]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    };
+  
+    const handleCardClick = (cardTitle: string) => {
+      const isSameCard = activeCard === cardTitle;
+      setActiveCard(isSameCard ? null : cardTitle);
+      
+      if (!isSameCard) {
+        setTimeout(() => scrollToCard(cardTitle), 100); // Small delay for render
+      }
+    };
 
   const cards = [
     { title: "Upcoming Bills", emoji: "📅", component: <UpcomingBills /> },
@@ -40,7 +59,7 @@ export default function Dashboard({ user = mockUser }: DashboardProps) {
      <h1 className="text-left sm:text-left text-4xl font-bold text-gray-200 mb-8">
         NextBanking 
       </h1>
-      <h2 className="text-sm text-gray-300 mt-4 mb-2">{user.name}&aposs dashboard</h2>
+      <h2 className="text-sm text-gray-300 mt-4 mb-2">{user.name}&apos;s dashboard</h2>
     
 
       {/* First Row: Only Wallet remains */}
@@ -56,7 +75,7 @@ export default function Dashboard({ user = mockUser }: DashboardProps) {
           {cards.map((card) => (
             <button
               key={card.title}
-              onClick={() => setActiveCard(activeCard === card.title ? null : card.title)}
+              onClick={() => handleCardClick(card.title)}
               className={`w-40 h-40 rounded-full bg-black text-white hover:bg-gray-800 transition-colors text-lg font-medium flex flex-col items-center justify-center p-4 ${
                 activeCard === card.title ? 'ring-4 ring-blue-500' : ''
               }`}
@@ -69,7 +88,19 @@ export default function Dashboard({ user = mockUser }: DashboardProps) {
 
         <div className="flex justify-center items-center w-full">
           <div className="w-full max-w-2xl">
-            {activeCard && cards.find(card => card.title === activeCard)?.component}
+          {cards.map((card) => (
+  <div
+    key={card.title}
+    ref={(el) => {
+      cardRefs.current[card.title] = el; // No return value needed
+    }}
+    className={`transition-opacity duration-300 ${
+      activeCard === card.title ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'
+    }`}
+  >
+    {activeCard === card.title && card.component}
+  </div>
+))}
           </div>
         </div>
       </div>
