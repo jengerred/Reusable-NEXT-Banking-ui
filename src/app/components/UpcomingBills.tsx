@@ -55,7 +55,7 @@ export default function UpcomingBills() {
     <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
      
      <div className="flex justify-between items-center mb-4">
-     <h2 className="text-lg font-semibold text-gray-800"> ⚠️  Upcoming Bills</h2>
+     <h2 className="text-lg font-semibold text-gray-800">   ⚠️  Upcoming Bills</h2>
       
        {/* Add Bill Button */}
       <button

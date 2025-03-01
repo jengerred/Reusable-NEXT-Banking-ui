@@ -42,6 +42,9 @@ export default function SpendingChart() {
   };
 
   return (
+    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200">
+        <h2 className="text-lg font-semibold mb-4 text-gray-800">📊 Spending Trends</h2>
     <Line data={data} options={options} />
+    </div>
   );
 }

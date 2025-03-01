@@ -78,7 +78,7 @@ export default function DebtPayoffTool() {
  
  {/* Header with Add Button */}
  <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Debt Payoff Tool</h2>
+        <h2 className="text-lg font-semibold text-gray-800">💸 Debt Payoff Tool</h2>
         <button
           onClick={handleAddDebt}
           className="px-4 py-2 text-sm font-medium bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"

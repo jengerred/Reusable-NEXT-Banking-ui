@@ -39,7 +39,7 @@ export default function SubscriptionCard() {
   return (
     <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
        <div className="flex justify-between items-center mb-4 gap-2">
-        <h2 className="text-lg font-semibold text-gray-800"> 🔔 Subscriptions</h2>
+        <h2 className="text-lg font-semibold text-gray-800"> 🔄 Subscriptions</h2>
 
             {/* Add New Subscription Button */}
             <button
